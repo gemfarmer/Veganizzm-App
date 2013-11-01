@@ -49,5 +49,4 @@
 7. Provide ingredient-level or meal-level substitutes for ingredients
 
 ## Notes
-1. The project goal would be to create an MVP, not a complete app. 
 
