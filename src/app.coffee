@@ -28,7 +28,7 @@ if ('development' == app.get('env'))
 
 
 # Connect Mongo DB
-mongoURI = process.env.MONGOHQ_URL or 'mongodb://localhost/personalsite'
+mongoURI = process.env.MONGOHQ_URL or 'mongodb://localhost/veganizzmapp'
 mongoose.connect(mongoURI)
 
 # Set up Schema
@@ -40,8 +40,10 @@ Recipe = mongoose.model('Recipe', {
 app.get('/', routes.index);
 app.post '/submitdata', (req,res) ->
 	submitedInfo = req.body
+	console.log("submitedInfo", submitedInfo)
 	recipe = new Recipe(submitedInfo)
-	lantern.save (err,data) ->
+	recipe.save (err,data) ->
+		console.log("sent to database:",data)
 		return
 	return
 
