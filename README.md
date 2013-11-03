@@ -19,9 +19,20 @@
 4. Socket.io
 5. APIs 
 	* Food2Fork: http://food2fork.com/about/api
-	*Yummly: https://developer.yummly.com/
-	*Veganizzm: http://veganizzm.com/
-	*BigOven: http://api.bigoven.com/
+	* Yummly: https://developer.yummly.com/
+		> Semantic Recipe Database
+	* Veganizzm: http://veganizzm.com/
+	* BigOven: http://api.bigoven.com/
+	* Whole Foods: 
+	* aetna: https://developer.carepass.com/docs/read/fooducate/fooducateapi_product
+		> The Fooducate product search returns product information based on a particular product identifier.
+	* LabelAPI: http://developer.foodessentials.com/
+		> barcode checker for dietary preference
+	* Punchfork: http://punchfork.com/
+		> Now owned by Pinterest http://developers.pinterest.com/
+	* Recipe Puppy API: http://www.recipepuppy.com/about/api/
+		> Recipe Database
+6. Hacker League Hack//Meat Silicon Valley: https://www.hackerleague.org/hackathons/hack-slash-slash-meat-silicon-valley/wikipages/51bf4c1198764b653100003e
 
 #### Workflow 
 1. Use API to get data from popular sites like allrecipes.com, foodnetwork.com, etc. for recipes as well as scrape Izzy's veganizzm.com site
