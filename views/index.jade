@@ -5,7 +5,24 @@ block content
 	p A tool for 
 		a(href="http://veganizzm.com/") Veganizzm.com
 	form
-		input(name="name")
+		input(name="search")
+		select(name="cuisine")
+			- for (var i = 0; i < cuisine.length; ++i) {
+				option(value='#{cuisine[i]}') #{cuisine[i]}
+			- }
+		select(name="courses")
+			- for (var i = 0; i < courses.length; ++i) {
+				option(value='#{courses[i]}') #{courses[i]}
+			- }
+		select(name="allergies")
+			- for (var i = 0; i < allergies.length; ++i) {
+				option(value='#{allergies[i]}') #{allergies[i]}
+			- }
+		select(name="diets")
+			- for (var i = 0; i < diets.length; ++i) {
+				option(value='#{diets[i]}') #{diets[i]}
+			- }
+
 		button#submit-btn.btn.btn-primary(type="submit") Submit Data
 
 

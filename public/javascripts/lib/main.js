@@ -9,10 +9,15 @@
       console.log($(this));
       info = $(this).serialize();
       console.log("info", info);
-      $.post('/submitdata', info, function(data) {});
-    });
-    $.get('/recipes', function(data) {
-      console.log(data);
+      return $.post('/submitrecipe', info, function(data) {
+        var i, recipe;
+        console.log(data);
+        for (i in data.matches) {
+          recipe = data.matches[i];
+          console.log(recipe);
+          return;
+        }
+      });
     });
   });
 

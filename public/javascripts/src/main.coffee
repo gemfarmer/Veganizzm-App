@@ -1,7 +1,5 @@
 console.log("fire main.js")
 
-
-
 $ -> 
 	$('form').on 'click', (e) ->
 		e.preventDefault()
@@ -11,10 +9,11 @@ $ ->
 
 		console.log("info",info)
 
-		$.post '/submitdata', info, (data) ->
+		$.post '/submitrecipe', info, (data) ->
+			console.log(data)
+			for i of data.matches
+				recipe = data.matches[i]
+				console.log(recipe)
+				return
 			return
-		return
-	$.get '/recipes', (data) ->
-		console.log(data)
-		return
 	return

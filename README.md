@@ -61,5 +61,6 @@
 6. Ability to search for vegan or non-vegan ingredients
 7. Provide ingredient-level or meal-level substitutes for ingredients
 
-## Notes
+## To DO
+1. Break apart Yummly API object
 

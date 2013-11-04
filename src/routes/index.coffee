@@ -1,5 +1,15 @@
 console.log("fire index.js")
 
 exports.index = (req, res) ->
-  res.render('index', { title: 'Veganizzm App' })
-  return
+	res.render('index', 
+			{ 
+				title: 'Veganizzm App', 
+				cuisine: ['none','american', 'italian', 'asian', 'mexican', 'french', 'southwestern', 'bbq', 'indian', 'chinese', 'mediterranean','english', 'greek', 'spanish', 'german', 'thai', 'moraccan', 'irish', 'japanese', 'cuban', 'hawaiian', 'swedish', 'portuguese', 'hungarian'],
+				courses: ['none','main', 'dessert', 'side', 'appetizers', 'salads', 'breads', 'soups', 'beverages', 'cocktails'],
+				allergies: ['none','sesame', 'seafood', 'peanut', 'soy', 'egg', 'sulfite', 'dairy', 'wheat', 'gluten'],
+				diets: ['none','pescaterian', 'vegetarian', 'vegan']
+			}
+		)
+		return
+	return
+	

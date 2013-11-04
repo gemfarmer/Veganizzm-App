@@ -31,25 +31,6 @@ if ('development' == app.get('env'))
 yummlyAppId = '48b32423'
 yummlyAppKey = "f801fe2eacf40c98299940e2824de106"
 
-#Pull Yummly API
-app.get '/recipes', (req, res) ->
-	request("http://api.yummly.com/v1/api/recipes?_app_id="+yummlyAppId+"&_app_key="+yummlyAppKey+"&q=onion+chicken", (error, response, body) ->
-		# console.log(body);
-		recipeObj = {
-			totalMatchCount: 0
-		}
-		yummlyObj = JSON.parse(body)
-
-		recipeObj.totalMatchCount = yummlyObj['totalMatchCount']
-		recipeObj.matches = yummlyObj['matches']
-		# console.log("totalMatchCount",totalMatchCount)
-		res.send(recipeObj)
-		res.send(yummlyObj)
-		return
-	)
-	return
-
-
 
 
 # Connect Mongo DB
@@ -57,20 +38,44 @@ mongoURI = process.env.MONGOHQ_URL or 'mongodb://localhost/veganizzmapp'
 mongoose.connect(mongoURI)
 
 # Set up Schema
-Recipe = mongoose.model('Recipe', {
-	name: String
-	ingredient: String
+RecipeSearch = mongoose.model('RecipeSearch', {
+	search: String
+	cuisine: String
+	courses: String
+	allergies: String
+	diets: String
 	})
 
 
 app.get('/', routes.index);
-app.post '/submitdata', (req,res) ->
-	submitedInfo = req.body
-	console.log("submitedInfo", submitedInfo)
-	recipe = new Recipe(submitedInfo)
-	recipe.save (err,data) ->
+# app.post('submitrecipe', routes.yummly)
+app.post '/submitrecipe', (req,res) ->
+
+
+	submittedInfo = req.body
+	console.log("submitedInfo", submittedInfo)
+	recipeSearch = new RecipeSearch(submittedInfo)
+	recipeSearch.save (err,data) ->
 		console.log("sent to database:",data)
 		return
+	console.log(submittedInfo.search)
+
+
+	#Pull Yummly API
+	request("http://api.yummly.com/v1/api/recipes?_app_id="+yummlyAppId+"&_app_key="+yummlyAppKey+"&q="+submittedInfo.search, (error, response, body) ->
+		# console.log(body);
+		recipeObj = {}
+		yummlyObj = JSON.parse(body)
+
+		recipeObj.totalMatchCount = yummlyObj['totalMatchCount']
+		recipeObj.criteria = yummlyObj['criteria']
+		recipeObj.matches = yummlyObj['matches']
+		
+		# console.log("totalMatchCount",totalMatchCount)
+		res.send(recipeObj)
+		res.send(yummlyObj)
+		return
+	)
 	return
 
 
