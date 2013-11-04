@@ -8,6 +8,7 @@ routes = require('./routes');
 http = require('http');
 path = require('path');
 mongoose = require('mongoose')
+request = require('request')
 
 app = express();
 
@@ -26,7 +27,29 @@ app.use(express.static(path.join(__dirname, '/../public')));
 if ('development' == app.get('env'))
 	app.use(express.errorHandler());
 
-#Pull food2fork.com API
+# Yummly Authentication
+yummlyAppId = '48b32423'
+yummlyAppKey = "f801fe2eacf40c98299940e2824de106"
+
+#Pull Yummly API
+app.get '/recipes', (req, res) ->
+	request("http://api.yummly.com/v1/api/recipes?_app_id="+yummlyAppId+"&_app_key="+yummlyAppKey+"&q=onion+chicken", (error, response, body) ->
+		# console.log(body);
+		recipeObj = {
+			totalMatchCount: 0
+		}
+		yummlyObj = JSON.parse(body)
+
+		recipeObj.totalMatchCount = yummlyObj['totalMatchCount']
+		recipeObj.matches = yummlyObj['matches']
+		# console.log("totalMatchCount",totalMatchCount)
+		res.send(recipeObj)
+		res.send(yummlyObj)
+		return
+	)
+	return
+
+
 
 
 # Connect Mongo DB
@@ -38,6 +61,7 @@ Recipe = mongoose.model('Recipe', {
 	name: String
 	ingredient: String
 	})
+
 
 app.get('/', routes.index);
 app.post '/submitdata', (req,res) ->

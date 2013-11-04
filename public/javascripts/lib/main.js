@@ -11,6 +11,9 @@
       console.log("info", info);
       $.post('/submitdata', info, function(data) {});
     });
+    $.get('/recipes', function(data) {
+      console.log(data);
+    });
   });
 
 }).call(this);

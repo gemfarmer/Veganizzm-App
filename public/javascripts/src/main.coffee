@@ -1,5 +1,7 @@
 console.log("fire main.js")
 
+
+
 $ -> 
 	$('form').on 'click', (e) ->
 		e.preventDefault()
@@ -11,5 +13,8 @@ $ ->
 
 		$.post '/submitdata', info, (data) ->
 			return
+		return
+	$.get '/recipes', (data) ->
+		console.log(data)
 		return
 	return
