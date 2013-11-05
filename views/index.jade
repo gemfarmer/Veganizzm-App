@@ -5,23 +5,35 @@ block content
 	p A tool for 
 		a(href="http://veganizzm.com/") Veganizzm.com
 	form
-		input(name="search")
-		select(name="allowedCuisine")
-			- for (var i = 0; i < allowedCuisine.length; ++i) {
-				input(value='#{allowedCuisine[i].searchValue}') #{allowedCuisine[i].description}
-			- }
-		select(name="allowedCourse")
-			- for (var i = 0; i < allowedCourse.length; ++i) {
-				option(value='#{allowedCourse[i].searchValue}') #{allowedCourse[i].description}
-			- }
-		select(name="allowedAllergy")
-			- for (var i = 0; i < allowedAllergy.length; ++i) {
-				option(value='#{allowedAllergy[i].searchValue}') #{allowedAllergy[i].shortDescription}
-			- }
-		select(name="allowedDiet")
-			- for (var i = 0; i < allowedDiet.length; ++i) {
-				option(value='#{allowedDiet[i].searchValue}') #{allowedDiet[i].shortDescription}
-			- }
+		h3 Cuisine
+		hr
+		- for (var i = 0; i < allowedCuisine.length; ++i) {
+			label #{allowedCuisine[i].description}&nbsp
+			input(type="checkbox", name="allowedCuisine", value='#{allowedCuisine[i].searchValue}')
+			&nbsp
+		- }
+		h3 Course
+		hr
+		- for (var i = 0; i < allowedCourse.length; ++i) {
+			label #{allowedCourse[i].description}&nbsp
+			input(type="checkbox", name="allowedCourse", value='#{allowedCourse[i].searchValue}') 
+			&nbsp
+		- }
+		h3 Allergy
+		hr
+		- for (var i = 0; i < allowedAllergy.length; ++i) {
+			label #{allowedAllergy[i].shortDescription}&nbsp
+			input(type="checkbox", name="allowedAllergy", value='#{allowedAllergy[i].searchValue}') 
+			&nbsp
+		- }
+		h3 Diet
+		hr
+		- for (var i = 0; i < allowedDiet.length; ++i) {
+			label #{allowedDiet[i].shortDescription}&nbsp
+			input(type="checkbox", name="allowedDiet", value='#{allowedDiet[i].searchValue}') 
+			&nbsp
+		- }
+		br
 
 		button#submit-btn.btn.btn-primary(type="submit") Submit Data
 
