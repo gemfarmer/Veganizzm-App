@@ -6,7 +6,12 @@ block content
 		a(href="http://veganizzm.com/") Veganizzm.com
 
 	input#e1(type='hidden', style="width: 500px;")
-	input#e2(type='hidden', style="width: 500px;")
+	select#e2(style="width: 500px;")
+		- for (var i = 0; i < allowedCuisine.length; ++i) {
+			option(name="#{allowedCuisine[i].description}", value='#{allowedCuisine[i].searchValue}') #{allowedCuisine[i].description}
+		- }
+
+	br
 	//- p
 	//- 	select#e9.populate.select2-offscreen(name="#{allowedCuisine[0].description}", style="width: 300px", multiple, tabindex="-1")
 	//- 		- for (var i = 0; i < allowedCuisine.length; ++i) {
@@ -21,13 +26,11 @@ block content
 	//- 		- }
 	
 
-
-
-	- for (var i = 0; i < allowedCourse.length; ++i) {
-		label #{allowedCourse[i].description}
-		input(type="checkbox", name="allowedCourse", value='#{allowedCourse[i].searchValue}') 
-		
-	- }
+	select.chzn-select(multiple="true", name="allowedCourse", style="width: 500px; hieght: 40px;", data-placeholder="Select courses...")
+		- for (var i = 0; i < allowedCourse.length; ++i) {
+			option(value='#{allowedCourse[i].searchValue}') #{allowedCourse[i].description}
+			
+		- }
 	h3 Allergy
 	hr
 	- for (var i = 0; i < allowedAllergy.length; ++i) {
