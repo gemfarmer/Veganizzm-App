@@ -1,6 +1,7 @@
 console.log("fire main.js")
 
 $ -> 
+
 	$('form').on 'click', (e) ->
 		e.preventDefault()
 		console.log($(this))
@@ -16,4 +17,6 @@ $ ->
 				console.log(recipe)
 				return
 			return
+
+	
 	return

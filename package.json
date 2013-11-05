@@ -13,5 +13,9 @@
     "stylus": "~0.39.3",
     "mongoose": "~3.8.0",
     "request": "~2.27.0"
+  },
+  "engines": {
+    "node": "0.10.x",
+    "npm": "1.2.x"
   }
 }

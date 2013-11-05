@@ -21,6 +21,7 @@
 	* Food2Fork: http://food2fork.com/about/api
 	* Yummly: https://developer.yummly.com/
 		> Semantic Recipe Database
+		> VeganYumYum
 	* Veganizzm: http://veganizzm.com/
 	* BigOven: http://api.bigoven.com/
 	* Whole Foods: 
@@ -62,5 +63,6 @@
 7. Provide ingredient-level or meal-level substitutes for ingredients
 
 ## To DO
-1. Break apart Yummly API object
+1. Fix q on search
+2. Fix checkboxes
 

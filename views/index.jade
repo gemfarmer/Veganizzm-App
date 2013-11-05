@@ -6,21 +6,21 @@ block content
 		a(href="http://veganizzm.com/") Veganizzm.com
 	form
 		input(name="search")
-		select(name="cuisine")
-			- for (var i = 0; i < cuisine.length; ++i) {
-				option(value='#{cuisine[i]}') #{cuisine[i]}
+		select(name="allowedCuisine")
+			- for (var i = 0; i < allowedCuisine.length; ++i) {
+				input(value='#{allowedCuisine[i].searchValue}') #{allowedCuisine[i].description}
 			- }
-		select(name="courses")
-			- for (var i = 0; i < courses.length; ++i) {
-				option(value='#{courses[i]}') #{courses[i]}
+		select(name="allowedCourse")
+			- for (var i = 0; i < allowedCourse.length; ++i) {
+				option(value='#{allowedCourse[i].searchValue}') #{allowedCourse[i].description}
 			- }
-		select(name="allergies")
-			- for (var i = 0; i < allergies.length; ++i) {
-				option(value='#{allergies[i]}') #{allergies[i]}
+		select(name="allowedAllergy")
+			- for (var i = 0; i < allowedAllergy.length; ++i) {
+				option(value='#{allowedAllergy[i].searchValue}') #{allowedAllergy[i].shortDescription}
 			- }
-		select(name="diets")
-			- for (var i = 0; i < diets.length; ++i) {
-				option(value='#{diets[i]}') #{diets[i]}
+		select(name="allowedDiet")
+			- for (var i = 0; i < allowedDiet.length; ++i) {
+				option(value='#{allowedDiet[i].searchValue}') #{allowedDiet[i].shortDescription}
 			- }
 
 		button#submit-btn.btn.btn-primary(type="submit") Submit Data

@@ -28,9 +28,11 @@ if ('development' == app.get('env'))
 	app.use(express.errorHandler());
 
 # Yummly Authentication
-yummlyAppId = '48b32423'
-yummlyAppKey = "f801fe2eacf40c98299940e2824de106"
 
+credentials = {
+		yummlyAppId : '_app_id=48b32423'
+		yummlyAppKey : "&_app_key=f801fe2eacf40c98299940e2824de106"
+}
 
 
 # Connect Mongo DB
@@ -39,11 +41,11 @@ mongoose.connect(mongoURI)
 
 # Set up Schema
 RecipeSearch = mongoose.model('RecipeSearch', {
-	search: String
-	cuisine: String
-	courses: String
-	allergies: String
-	diets: String
+	q: String
+	allowedCuisine: String
+	allowedCourse: String
+	allowedAllergy: String
+	allowedDiet: String
 	})
 
 
@@ -53,16 +55,29 @@ app.post '/submitrecipe', (req,res) ->
 
 
 	submittedInfo = req.body
-	console.log("submitedInfo", submittedInfo)
+	console.log("submittedInfo", submittedInfo)
 	recipeSearch = new RecipeSearch(submittedInfo)
 	recipeSearch.save (err,data) ->
 		console.log("sent to database:",data)
 		return
-	console.log(submittedInfo.search)
+	console.log("HEYYEYEYEYYEYE",submittedInfo.q)
+	#Create Search Criteria strings
+	recipeQuery = "&q="+submittedInfo.q
+	checkCourse = "&allowedCourse[]="+submittedInfo.allowedCourse
+	checkAllergies = "&allowedAllergy[]="+submittedInfo.allowedAllergy
+	checkDiet = "&allowedDiet[]="+submittedInfo.allowedDiet
+	checkCuisine = "&allowedCuisine[]="+submittedInfo.allowedCuisine
 
+	# console.log("checkDiet",checkDiet)
 
+	urlExtras = recipeQuery+checkAllergies+checkDiet+checkCourse+checkCuisine
+	console.log('urlExtras',urlExtras)
+
+	requestYummlyUrl = "http://api.yummly.com/v1/api/recipes?"+credentials.yummlyAppId+credentials.yummlyAppKey+urlExtras
+	console.log(requestYummlyUrl)
 	#Pull Yummly API
-	request("http://api.yummly.com/v1/api/recipes?_app_id="+yummlyAppId+"&_app_key="+yummlyAppKey+"&q="+submittedInfo.search, (error, response, body) ->
+	request(requestYummlyUrl, (error, response, body) ->
+
 		# console.log(body);
 		recipeObj = {}
 		yummlyObj = JSON.parse(body)
@@ -73,8 +88,9 @@ app.post '/submitrecipe', (req,res) ->
 		
 		# console.log("totalMatchCount",totalMatchCount)
 		res.send(recipeObj)
-		res.send(yummlyObj)
+		# res.send(yummlyObj)
 		return
+
 	)
 	return
 
