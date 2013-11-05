@@ -10,8 +10,8 @@ exports.index = (req, res) ->
 	yummlyUrl = 'http://api.yummly.com/v1/api/metadata/course?'+credentials.yummlyAppId+credentials.yummlyAppKey
 
 	request(yummlyUrl, (error, response, body) ->
-		console.log("allergilicioius",body)
-		parsedBody = JSON.parse(body)
+		# console.log("allergilicioius",body)
+		# parsedBody = JSON.parse(body)
 		# console.log(response)
 		return
 	)
