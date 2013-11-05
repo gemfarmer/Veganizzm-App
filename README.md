@@ -63,6 +63,7 @@
 7. Provide ingredient-level or meal-level substitutes for ingredients
 
 ## To DO
+1. Break apart input function 
 1. Fix q on search
 2. Fix checkboxes
 

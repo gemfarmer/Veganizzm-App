@@ -4,36 +4,45 @@ block content
 	h1= title
 	p A tool for 
 		a(href="http://veganizzm.com/") Veganizzm.com
-	form
-		h3 Cuisine
-		hr
-		- for (var i = 0; i < allowedCuisine.length; ++i) {
-			label #{allowedCuisine[i].description}&nbsp
-			input(type="checkbox", name="allowedCuisine", value='#{allowedCuisine[i].searchValue}')
-			&nbsp
-		- }
-		h3 Course
-		hr
-		- for (var i = 0; i < allowedCourse.length; ++i) {
-			label #{allowedCourse[i].description}&nbsp
-			input(type="checkbox", name="allowedCourse", value='#{allowedCourse[i].searchValue}') 
-			&nbsp
-		- }
-		h3 Allergy
-		hr
-		- for (var i = 0; i < allowedAllergy.length; ++i) {
-			label #{allowedAllergy[i].shortDescription}&nbsp
-			input(type="checkbox", name="allowedAllergy", value='#{allowedAllergy[i].searchValue}') 
-			&nbsp
-		- }
-		h3 Diet
-		hr
-		- for (var i = 0; i < allowedDiet.length; ++i) {
-			label #{allowedDiet[i].shortDescription}&nbsp
-			input(type="checkbox", name="allowedDiet", value='#{allowedDiet[i].searchValue}') 
-			&nbsp
-		- }
-		br
+
+	input#e1(type='hidden', style="width: 500px;")
+	input#e2(type='hidden', style="width: 500px;")
+	//- p
+	//- 	select#e9.populate.select2-offscreen(name="#{allowedCuisine[0].description}", style="width: 300px", multiple, tabindex="-1")
+	//- 		- for (var i = 0; i < allowedCuisine.length; ++i) {
+
+	//- 			option(label="#{allowedCuisine[i].description}", name="#{allowedCuisine[i].description}", value='#{allowedCuisine[i].searchValue}') 
+	//- 		- }
+	//- div.select2-container.select2-container-multi.populate#s2id_e9(style="width: 300px;")
+
+	//- 	select#e9.populate.select2-offscreen(name="e9", style="width: 300px", multiple, tabindex="-1") Cuisine
+	//- 		- for (var i = 0; i < allowedCuisine.length; ++i) {
+	//- 			option(value='#{allowedCuisine[i].searchValue}') #{allowedCuisine[i].description}	
+	//- 		- }
+	
+
+
+
+	- for (var i = 0; i < allowedCourse.length; ++i) {
+		label #{allowedCourse[i].description}
+		input(type="checkbox", name="allowedCourse", value='#{allowedCourse[i].searchValue}') 
+		
+	- }
+	h3 Allergy
+	hr
+	- for (var i = 0; i < allowedAllergy.length; ++i) {
+		label #{allowedAllergy[i].shortDescription}
+		input(type="checkbox", name="allowedAllergy", value='#{allowedAllergy[i].searchValue}') 
+		
+	- }
+	h3 Diet
+	hr
+	- for (var i = 0; i < allowedDiet.length; ++i) {
+		label #{allowedDiet[i].shortDescription}
+		input(type="checkbox", name="allowedDiet", value='#{allowedDiet[i].searchValue}') 
+		
+	- }
+	br
 
 		button#submit-btn.btn.btn-primary(type="submit") Submit Data
 
