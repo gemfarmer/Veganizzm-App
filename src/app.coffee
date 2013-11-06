@@ -60,31 +60,53 @@ app.post '/submitrecipe', (req,res) ->
 	recipeSearch.save (err,data) ->
 		console.log("sent to database:",data)
 		return
-	console.log("HEYYEYEYEYYEYE",submittedInfo)
+	queryPrefix = {
+		q : "&q="
+		allowedCourse : "&allowedCourse[]="
+		allowedAllergy : "&allowedAllergy[]="
+		allowedDiet : "&allowedDiet[]="
+		allowedCuisine : "&allowedCuisine[]="
+	}
+	queryObj = {}
+	for i of submittedInfo
+		if typeof(submittedInfo[i]) == "object"
+			# console.log("INSTANCE")
+			queryArray = []
+			prepend = () ->
+				
+				queryArray.push(queryPrefix[i] + j)
+				queryObj[i] = queryArray.join("")
+				# console.log("QUERY ARRAY",queryArray)
+			prepend() for j in submittedInfo[i]
+		else 
+			queryObj[i] = queryPrefix[i] + submittedInfo[i]
+
+
+
 	#Create Search Criteria strings
 
-	queryArray = {
-		recipeQuery : "&q="+submittedInfo.q
-		checkCourse :"&allowedCourse[]="+submittedInfo.allowedCourse
-		checkAllergies: "&allowedAllergy[]="+submittedInfo.allowedAllergy
-		checkDiet : "&allowedDiet[]="+submittedInfo.allowedDiet
-		checkCuisine : "&allowedCuisine[]="+submittedInfo.allowedCuisine
-	}
+	# queryArray = {
+	# 	recipeQuery : "&q="+submittedInfo.q
+	# 	checkCourse :"&allowedCourse[]="+submittedInfo.allowedCourse
+	# 	checkAllergies: "&allowedAllergy[]="+submittedInfo.allowedAllergy
+	# 	checkDiet : "&allowedDiet[]="+submittedInfo.allowedDiet
+	# 	checkCuisine : "&allowedCuisine[]="+submittedInfo.allowedCuisine
+	# }
 	# console.log("checkDiet",checkDiet)
 
 	# add logic to determine query suffix
 	urlExtras = []
 
-	if queryArray.recipeQuery != false
-		urlExtras.push(queryArray.recipeQuery)
-	if queryArray.checkCourse != false
-		urlExtras.push(queryArray.checkCourse)
-	if queryArray.checkAllergies != false
-		urlExtras.push(queryArray.checkAllergies)
-	if queryArray.checkDiet != false
-		urlExtras.push(queryArray.checkDiet)
-	if queryArray.checkCuisine != false
-		urlExtras.push(queryArray.checkCuisine)
+	if queryObj.q != false
+		urlExtras.push(queryObj.q)
+	if queryObj.allowedCourse != false
+		urlExtras.push(queryObj.allowedCourse)
+	if queryObj.allowedAllergy != false
+		urlExtras.push(queryObj.allowedAllergy)
+	if queryObj.allowedDiet != false
+		urlExtras.push(queryObj.allowedDiet)
+	if queryObj.allowedCuisine != false
+		urlExtras.push(queryObj.allowedCuisine)
 
 	
 	console.log('urlExtras',urlExtras)
