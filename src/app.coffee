@@ -88,33 +88,26 @@ app.post '/submitrecipe', (req,res) ->
 
 	
 	console.log('urlExtras',urlExtras)
+	joinedURL = urlExtras.join("")
 
-	requestYummlyUrl = "http://api.yummly.com/v1/api/recipes?"+credentials.yummlyAppId+credentials.yummlyAppKey+urlExtras
+	requestYummlyUrl = "http://api.yummly.com/v1/api/recipes?"+credentials.yummlyAppId+credentials.yummlyAppKey+joinedURL
 	console.log(requestYummlyUrl)
 	#Pull Yummly API
-	queryYummlyrecipes = (callback) ->
-		request requestYummlyUrl, (error, response, body) ->
+	request requestYummlyUrl, (error, response, body) ->
+
 		# console.log(body);
-
+		recipeObj = {}
 		yummlyObj = JSON.parse(body)
+
+		recipeObj.totalMatchCount = yummlyObj['totalMatchCount']
+		recipeObj.criteria = yummlyObj['criteria']
+		recipeObj.matches = yummlyObj['matches']
+		
 		# console.log("totalMatchCount",totalMatchCount)
-		callback(null, yummlyObj)
+		res.send(recipeObj)
+		# res.send(yummlyObj)
+		return
 
-	# set object to send
-	toSend = {}
-
-	#define async task
-	tasks = [
-		(cb) ->
-			queryYummlyrecipes (err, data) ->
-				toSend.totalMatchCount = data['totalMatchCount']
-				toSend.criteria = data['criteria']
-				toSend.matches = data['matches']
-				cb()
-	]
-	# perform a sync task RES.SEND
-	async.series tasks, () ->
-		res.send toSend
 
 http.createServer(app).listen(app.get('port'), () ->
 	console.log('Express server listening on port ' + app.get('port'));
