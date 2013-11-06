@@ -1,12 +1,11 @@
 console.log("fire main.js")
 
 $ -> 
-
 	console.log("fire jQ")
 	
 	$(".chzn-select").chosen()
 
-	$('input').on 'click', (e) ->
+	$('#recipe-form').on 'click', (e) ->
 		e.preventDefault()
 		console.log($(this))
 

@@ -5,7 +5,7 @@
   $(function() {
     console.log("fire jQ");
     $(".chzn-select").chosen();
-    $('input').on('click', function(e) {
+    $('#recipe-form').on('click', function(e) {
       var info;
       e.preventDefault();
       console.log($(this));
