@@ -9,7 +9,7 @@ http = require('http');
 path = require('path');
 mongoose = require('mongoose')
 request = require('request')
-
+async = require 'async'
 app = express();
 
 # all environments
@@ -60,40 +60,61 @@ app.post '/submitrecipe', (req,res) ->
 	recipeSearch.save (err,data) ->
 		console.log("sent to database:",data)
 		return
-	console.log("HEYYEYEYEYYEYE",submittedInfo.q)
+	console.log("HEYYEYEYEYYEYE",submittedInfo)
 	#Create Search Criteria strings
-	recipeQuery = "&q="+submittedInfo.q
-	checkCourse = "&allowedCourse[]="+submittedInfo.allowedCourse
-	checkAllergies = "&allowedAllergy[]="+submittedInfo.allowedAllergy
-	checkDiet = "&allowedDiet[]="+submittedInfo.allowedDiet
-	checkCuisine = "&allowedCuisine[]="+submittedInfo.allowedCuisine
 
+	queryArray = {
+		recipeQuery : "&q="+submittedInfo.q
+		checkCourse :"&allowedCourse[]="+submittedInfo.allowedCourse
+		checkAllergies: "&allowedAllergy[]="+submittedInfo.allowedAllergy
+		checkDiet : "&allowedDiet[]="+submittedInfo.allowedDiet
+		checkCuisine : "&allowedCuisine[]="+submittedInfo.allowedCuisine
+	}
 	# console.log("checkDiet",checkDiet)
 
-	urlExtras = recipeQuery+checkAllergies+checkDiet+checkCourse+checkCuisine
+	# add logic to determine query suffix
+	urlExtras = []
+
+	if queryArray.recipeQuery != false
+		urlExtras.push(queryArray.recipeQuery)
+	if queryArray.checkCourse != false
+		urlExtras.push(queryArray.checkCourse)
+	if queryArray.checkAllergies != false
+		urlExtras.push(queryArray.checkAllergies)
+	if queryArray.checkDiet != false
+		urlExtras.push(queryArray.checkDiet)
+	if queryArray.checkCuisine != false
+		urlExtras.push(queryArray.checkCuisine)
+
+	
 	console.log('urlExtras',urlExtras)
 
 	requestYummlyUrl = "http://api.yummly.com/v1/api/recipes?"+credentials.yummlyAppId+credentials.yummlyAppKey+urlExtras
 	console.log(requestYummlyUrl)
 	#Pull Yummly API
-	request(requestYummlyUrl, (error, response, body) ->
-
+	queryYummlyrecipes = (callback) ->
+		request requestYummlyUrl, (error, response, body) ->
 		# console.log(body);
-		recipeObj = {}
+
 		yummlyObj = JSON.parse(body)
-
-		recipeObj.totalMatchCount = yummlyObj['totalMatchCount']
-		recipeObj.criteria = yummlyObj['criteria']
-		recipeObj.matches = yummlyObj['matches']
-		
 		# console.log("totalMatchCount",totalMatchCount)
-		res.send(recipeObj)
-		# res.send(yummlyObj)
-		return
+		callback(null, yummlyObj)
 
-	)
-	return
+	# set object to send
+	toSend = {}
 
+	#define async task
+	tasks = [
+		(cb) ->
+			queryYummlyrecipes (err, data) ->
+				toSend.totalMatchCount = data['totalMatchCount']
+				toSend.criteria = data['criteria']
+				toSend.matches = data['matches']
+				cb()
+	]
+	# perform a sync task RES.SEND
+	async.series tasks, () ->
+		res.send toSend
 
 http.createServer(app).listen(app.get('port'), () ->
 	console.log('Express server listening on port ' + app.get('port'));

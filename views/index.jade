@@ -5,6 +5,7 @@ block content
 	p A tool for 
 		a(href="http://veganizzm.com/") Veganizzm.com
 	form#recipe-form
+
 		select.chzn-select(multiple="true", name="allowedCuisine", style="width: 500px; hieght: 40px;", data-placeholder="Select cuisine...")
 			- for (var i = 0; i < allowedCuisine.length; ++i) {
 				option(value='#{allowedCuisine[i].searchValue}') #{allowedCuisine[i].description}
@@ -29,7 +30,13 @@ block content
 				
 			- }
 		br
-
+		input(name="q", style="width: 500px; hieght: 40px;", data-placeholder="Select recipe...")
+		//- select.chzn-select(name="q", style="width: 500px; hieght: 40px;", data-placeholder="Select recipe...")
+		//- 	- for (var i = 0; i < q.length; ++i) {
+		//- 		option(value='#{q[i].searchValue}') #{q[i].description}
+				
+		//- 	- }
+		br
 		button#submit-btn.btn.btn-primary(type="submit") Submit Data
 
 

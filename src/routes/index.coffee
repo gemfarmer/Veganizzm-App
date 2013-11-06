@@ -15,6 +15,27 @@ exports.index = (req, res) ->
 		yummlyAppKey : "&_app_key=f801fe2eacf40c98299940e2824de106"
 	}
 	
+	# getQueryData = (callback) ->
+	# 	yummlyUrl = "http://api.yummly.com/v1/api/recipes?"+credentials.yummlyAppId+credentials.yummlyAppKey
+
+	# 	request(yummlyUrl, (error, response, body) ->
+
+	# 	# console.log(body);
+	# 	recipeObj = {}
+	# 	yummlyObj = JSON.parse(body)
+
+	# 	recipeObj.totalMatchCount = yummlyObj['totalMatchCount']
+	# 	# recipeObj.criteria = yummlyObj['criteria']
+	# 	recipeObj.matches = yummlyObj['matches']
+		
+	# 	# console.log("totalMatchCount",totalMatchCount)
+	# 	callback(null, recipeObj)
+	# 	# res.send(yummlyObj)
+		
+	# 	)
+
+
+
 	getMetaData = (param, callback) ->
 
 		yummlyUrl = 'http://api.yummly.com/v1/api/metadata/'+param+'?'+credentials.yummlyAppId+credentials.yummlyAppKey
@@ -48,9 +69,16 @@ exports.index = (req, res) ->
 			getMetaData searchParam.diet, (err, data) ->
 				toRender.allowedDiet = data
 				cb()
+		,
+		# (cb) ->
+		# 	getQueryData (err, data) ->
+		# 		toRender.q = data
+		# 		cb()
+		# ,
 	]
 
 	# use parallel instead of series because none of the tasks rely on one another
-	async.parallel tasks, () ->
+	# added query, changed to series
+	async.series tasks, () ->
 		res.render 'index', toRender
 

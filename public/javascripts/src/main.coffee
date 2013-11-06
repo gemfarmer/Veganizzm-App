@@ -7,7 +7,7 @@ $ ->
 
 	$('#recipe-form').on 'click', (e) ->
 		e.preventDefault()
-		console.log($(this))
+		# console.log($(this))
 
 		info = $(this).serialize()
 
