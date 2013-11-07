@@ -81,20 +81,6 @@ app.post '/submitrecipe', (req,res) ->
 		else 
 			queryObj[i] = queryPrefix[i] + submittedInfo[i]
 
-
-
-	#Create Search Criteria strings
-
-	# queryArray = {
-	# 	recipeQuery : "&q="+submittedInfo.q
-	# 	checkCourse :"&allowedCourse[]="+submittedInfo.allowedCourse
-	# 	checkAllergies: "&allowedAllergy[]="+submittedInfo.allowedAllergy
-	# 	checkDiet : "&allowedDiet[]="+submittedInfo.allowedDiet
-	# 	checkCuisine : "&allowedCuisine[]="+submittedInfo.allowedCuisine
-	# }
-	# console.log("checkDiet",checkDiet)
-
-	# add logic to determine query suffix
 	urlExtras = []
 
 	if queryObj.q != false
@@ -107,6 +93,8 @@ app.post '/submitrecipe', (req,res) ->
 		urlExtras.push(queryObj.allowedDiet)
 	if queryObj.allowedCuisine != false
 		urlExtras.push(queryObj.allowedCuisine)
+	# for i of queryObj
+	# 	urlExtras.push queryObj[i]
 
 	
 	console.log('urlExtras',urlExtras)

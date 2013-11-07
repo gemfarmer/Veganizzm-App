@@ -63,7 +63,13 @@
 7. Provide ingredient-level or meal-level substitutes for ingredients
 
 ## To DO
-1. Break apart input function 
-1. Fix q on search
-2. Fix checkboxes
+1. Finish Client Side Query set
+	* add searchable q field
+
+2. Find second API to pull
+3. Look for ingredient substitution listing
+	* http://www.vegetariantimes.com/article/ingredient-substitution-guide/
+	* http://www.veganwolf.com/vegan_cooking_substitutions.htm
+	* http://vegetarian.lovetoknow.com/Vegan_Ingredient_Substitution_List
+	* http://www.vegkitchen.com/tips/vegan-substitutions/
 
