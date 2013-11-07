@@ -1,3 +1,7 @@
 {
+	"meat" : ["beans", "cheese", "seitan", "tempeh", "textured vegetable protein (TVP)", "tofu"],
+	"meat stock" : ["vegetable stock", "vegetable bouillon cubes", "miso"],
+	"seasoned or smoked meat" : ["flavored soy meat substitute", "seasoned tofu", "canned chipotle chiles", "roasted vegetables", "toasted nuts", "smoked tofu", "smoked cheese"],
+	"gelatin" : ["agar-agar", "arrowroot powder", "guar gum", "xanthum gum", "kudzu powder"],
 	
 }

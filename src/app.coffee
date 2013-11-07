@@ -112,6 +112,7 @@ app.post '/submitrecipe', (req,res) ->
 		recipeObj.totalMatchCount = yummlyObj['totalMatchCount']
 		recipeObj.criteria = yummlyObj['criteria']
 		recipeObj.matches = yummlyObj['matches']
+		recipeObj.attribution = yummlyObj['attribution']
 		
 		# console.log("totalMatchCount",totalMatchCount)
 		res.send(recipeObj)

@@ -5,7 +5,7 @@ $ ->
 	
 	$(".chzn-select").chosen()
 
-	$('#recipe-form').on 'click', (e) ->
+	$('#recipe-form').on 'submit', (e) ->
 		e.preventDefault()
 		# console.log($(this))
 
