@@ -30,12 +30,14 @@ block content
 				
 			- }
 		br
-		input(name="q", style="width: 500px; hieght: 40px;", data-placeholder="Select recipe...")
-		//- select.chzn-select(name="q", style="width: 500px; hieght: 40px;", data-placeholder="Select recipe...")
-		//- 	- for (var i = 0; i < q.length; ++i) {
-		//- 		option(value='#{q[i].searchValue}') #{q[i].description}
+		//- input(name="q", style="width: 500px; hieght: 40px;", data-placeholder="Select recipe...")
+		//- br
+		select.chzn-select(multiple="true", name="q", style="width: 500px; height: 40px;", data-placeholder="Select recipe...")
+			- for (var i = 0; i < q.length; ++i) {
+				//- option(value='#{q[i][matches][recipeName]}') #{q[i][matches][recipeName]}
+				option(value='#{q[i].recipeName}') #{q[i].recipeName}
 				
-		//- 	- }
+			- }
 		br
 		button#submit-btn.btn.btn-primary(type="submit") Submit Data
 
