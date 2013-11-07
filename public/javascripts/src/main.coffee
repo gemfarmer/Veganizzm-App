@@ -3,6 +3,11 @@ console.log("fire main.js")
 $ -> 
 	console.log("fire jQ")
 	
+	$('.querySearch').on 'keyup', (e) ->
+		val = $(this).val()
+		$.get '/searchRecipes', val, (data) ->
+
+
 	$(".chzn-select").chosen()
 
 	$('#recipe-form').on 'submit', (e) ->
@@ -18,8 +23,4 @@ $ ->
 			for i of data.matches
 				recipe = data.matches[i]
 				console.log(recipe)
-				return
-			return
-
-	
-	return
+			

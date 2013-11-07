@@ -4,20 +4,26 @@
 
   $(function() {
     console.log("fire jQ");
+    $('.querySearch').on('keyup', function(e) {
+      var val;
+      val = $(this).val();
+      return $.get('/searchRecipes', val, function(data) {});
+    });
     $(".chzn-select").chosen();
-    $('#recipe-form').on('submit', function(e) {
+    return $('#recipe-form').on('submit', function(e) {
       var info;
       e.preventDefault();
       info = $(this).serialize();
       console.log("info", info);
       return $.post('/submitrecipe', info, function(data) {
-        var i, recipe;
+        var i, recipe, _results;
         console.log(data);
+        _results = [];
         for (i in data.matches) {
           recipe = data.matches[i];
-          console.log(recipe);
-          return;
+          _results.push(console.log(recipe));
         }
+        return _results;
       });
     });
   });

@@ -4,6 +4,7 @@ async = require 'async'
 
 
 exports.index = (req, res) ->
+
 	searchMetaParam = {
 		allergy: 'allergy'
 		diet: 'diet'
@@ -19,33 +20,27 @@ exports.index = (req, res) ->
 	getMetaData = (param, callback) ->
 
 		yummlyUrl = 'http://api.yummly.com/v1/api/metadata/'+param+'?'+credentials.yummlyAppId+credentials.yummlyAppKey
-		request(yummlyUrl, (error, response, body) ->	
+		request yummlyUrl, (error, response, body) ->	
 				data = body.replace("set_metadata('"+param+"',", '').replace(');', '')
 				
 				callback(null, JSON.parse(data)) 
-		)
+	
+	searchRecipes = () ->
+		# console.log(app)
+		# app.get '/searchRecipes', (req,res) ->
 
 	getRecipeData = (callback) ->
-
+		# console.log("searchRecipes",searchRecipes())
 		yummlyQUrl = "http://api.yummly.com/v1/api/recipes?"+credentials.yummlyAppId+credentials.yummlyAppKey
 		console.log(yummlyQUrl)
 		#Pull Yummly API
 		request yummlyQUrl, (error, response, body) ->
-
 			# console.log(body);
 			recipeObj = {}
 			yummlyObj = JSON.parse(body)
-			console.log("YUM", yummlyObj)
+			# console.log("YUM", yummlyObj)
 
-
-			# recipeObj.totalMatchCount = yummlyObj['totalMatchCount']
-			# recipeObj.criteria = yummlyObj['criteria']
-			# recipeObj.matches = yummlyObj['matches']
-			# recipeObj.attribution = yummlyObj['attribution']
-			
-			# console.log("totalMatchCount",totalMatchCount)
-			# callback(null, recipeObj)
-			callback(null, yummlyObj.matches)
+			callback(null, yummlyObj)
 
 			return
 
@@ -53,6 +48,8 @@ exports.index = (req, res) ->
 	toRender = {
 		title: 'Veganizzm App'
 	}
+
+	#### make async functions pure. avoid making toRender global
 
 	tasks = [
 		(cb) ->
@@ -77,12 +74,13 @@ exports.index = (req, res) ->
 		,
 		(cb) ->
 			getRecipeData (err, data) ->
-				toRender.q = data
-				cb()
+				toRender.q = data.matches
+				cb(data)
 	]
 
 	# use parallel instead of series because none of the tasks rely on one another
 	# added query, changed to series
-	async.series tasks, () ->
+	async.series tasks, (data) ->
+		console.log "data", data
 		res.render 'index', toRender
 

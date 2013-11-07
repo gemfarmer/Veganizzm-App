@@ -30,10 +30,10 @@ if ('development' == app.get('env'))
 # Yummly Authentication
 
 credentials = {
-		yummlyAppId : '_app_id=48b32423'
-		yummlyAppKey : "&_app_key=f801fe2eacf40c98299940e2824de106"
+	yummlyAppId : '_app_id=48b32423'
+	yummlyAppKey : "&_app_key=f801fe2eacf40c98299940e2824de106"
 }
-
+##### store key and key query separately
 
 # Connect Mongo DB
 mongoURI = process.env.MONGOHQ_URL or 'mongodb://localhost/veganizzmapp'
@@ -61,12 +61,16 @@ app.post '/submitrecipe', (req,res) ->
 		console.log("sent to database:",data)
 		return
 	queryPrefix = {
-		q : "&q="
+		# q : "&q="
 		allowedCourse : "&allowedCourse[]="
 		allowedAllergy : "&allowedAllergy[]="
 		allowedDiet : "&allowedDiet[]="
 		allowedCuisine : "&allowedCuisine[]="
 	}
+
+	##### create helper function to append string prefixes and suffixes
+
+	##### clean up logic dealing with multi-fill forms
 	queryObj = {}
 	for i of submittedInfo
 		if typeof(submittedInfo[i]) == "object"
@@ -83,8 +87,8 @@ app.post '/submitrecipe', (req,res) ->
 
 	urlExtras = []
 
-	if queryObj.q != false
-		urlExtras.push(queryObj.q)
+	# if queryObj.q != false
+	# 	urlExtras.push(queryObj.q)
 	if queryObj.allowedCourse != false
 		urlExtras.push(queryObj.allowedCourse)
 	if queryObj.allowedAllergy != false

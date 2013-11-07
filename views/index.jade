@@ -7,14 +7,13 @@ block content
 	form#recipe-form
 
 		select.chzn-select(multiple="true", name="allowedCuisine", style="width: 500px; hieght: 40px;", data-placeholder="Select cuisine...")
-			- for (var i = 0; i < allowedCuisine.length; ++i) {
-				option(value='#{allowedCuisine[i].searchValue}') #{allowedCuisine[i].description}
-				
-			- }
+			for item in allowedCuisine
+				option(value='#{item.searchValue}') #{item.description}
+			
 		br
 		select.chzn-select(multiple="true", name="allowedCourse", style="width: 500px; hieght: 40px;", data-placeholder="Select courses...")
-			- for (var i = 0; i < allowedCourse.length; ++i) {
-				option(value='#{allowedCourse[i].searchValue}') #{allowedCourse[i].description}
+			for item in allowedCourse
+				option(value='#{item.searchValue}') #{item.description}
 				
 			- }
 		br
@@ -32,10 +31,10 @@ block content
 		br
 		//- input(name="q", style="width: 500px; hieght: 40px;", data-placeholder="Select recipe...")
 		//- br
-		select.chzn-select(multiple="true", name="q", style="width: 500px; height: 40px;", data-placeholder="Select recipe...")
+		select.chzn-select.querySearch(name="q", style="width: 500px; height: 40px;", data-placeholder="Select recipe...")
 			- for (var i = 0; i < q.length; ++i) {
 				//- option(value='#{q[i][matches][recipeName]}') #{q[i][matches][recipeName]}
-				option(value='#{q[i].recipeName}') #{q[i].recipeName}
+				option.querySearch(value='#{q[i].recipeName}') #{q[i].recipeName}
 				
 			- }
 		br
